@@ -36,9 +36,9 @@ public class BooksListingActivity extends AppCompatActivity {
 
         // Only for testing purposes
         List<Book> books = new ArrayList<>();
-        books.add(new Book("Title 1", 200));
-        books.add(new Book("Title 2", 240));
-        books.add(new Book("Title 3", 120));
+        books.add(new Book(1L, "Title 1", 200));
+        books.add(new Book(2L, "Title 2", 240));
+        books.add(new Book(3L, "Title 3", 120));
 
         final ListView listview = (ListView) findViewById(R.id.books_listview);
         final BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);
