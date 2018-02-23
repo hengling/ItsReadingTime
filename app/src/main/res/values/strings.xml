@@ -7,6 +7,10 @@
     <string name="msg_add_book_success">Book added successfully!</string>
     <string name="msg_add_book_error">Ops, looks like something went wrong...</string>
 
+    <!--validation messages-->
+    <string name="msg_book_title_required">Title is required</string>
+    <string name="msg_book_pages_required">Number of pages is required</string>
+
     <!--buttons-->
     <string name="btn_setup_reminder">Setup Reminder</string>
     <string name="btn_save">Save</string>

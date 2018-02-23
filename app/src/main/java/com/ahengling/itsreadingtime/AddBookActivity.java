@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,10 @@ public class AddBookActivity extends AppCompatActivity {
                 final EditText bookTitleEditText = (EditText) findViewById(R.id.book_title_edit_text);
                 final EditText bookPagesEditText = (EditText) findViewById(R.id.book_pages_edit_text);
 
+                if (!isFormValid()) {
+                    return;
+                }
+
                 Book book = new Book();
                 book.setTitle(bookTitleEditText.getText().toString());
                 book.setNbOfPages(Integer.parseInt(bookPagesEditText.getText().toString()));
@@ -42,6 +47,29 @@ public class AddBookActivity extends AppCompatActivity {
                 new saveBookTask().execute(book);
             }
         });
+    }
+
+    private Boolean isFormValid() {
+        return isBookTitleValid() && isBookPagesValid();
+    }
+
+    private Boolean isBookTitleValid() {
+        final EditText bookTitleEditText = (EditText) findViewById(R.id.book_title_edit_text);
+        return isRequiredFieldFilled(bookTitleEditText, R.string.msg_book_title_required);
+    }
+
+    private Boolean isBookPagesValid() {
+        final EditText bookPagesEditText = (EditText) findViewById(R.id.book_pages_edit_text);
+        return isRequiredFieldFilled(bookPagesEditText, R.string.msg_book_pages_required);
+    }
+
+    private Boolean isRequiredFieldFilled(EditText editText, int idErrorMessage) {
+        final EditText bookTitleEditText = (EditText) findViewById(R.id.book_title_edit_text);
+        if (TextUtils.isEmpty(editText.getText())) {
+            editText.setError(getResources().getString(idErrorMessage));
+            return false;
+        }
+        return true;
     }
 
     private class saveBookTask extends AsyncTask<Book, Void, Boolean> {
