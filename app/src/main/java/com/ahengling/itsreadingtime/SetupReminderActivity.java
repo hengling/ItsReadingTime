@@ -15,7 +15,7 @@ public class SetupReminderActivity extends AppCompatActivity {
 
         Book book = (Book) getIntent().getSerializableExtra("book");
 
-        TextView textView = (TextView) findViewById(R.id.textView);
+        TextView textView = (TextView) findViewById(R.id.book_title_text_view);
         textView.setText(book.getTitle());
     }
 }

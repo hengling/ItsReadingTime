@@ -71,6 +71,14 @@ public class BooksListingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setVisible(View view) {
+        view.setVisibility(View.VISIBLE);
+    }
+
+    private void setInsivible(View view) {
+        view.setVisibility(View.INVISIBLE);
+    }
+
     private class findAllBooks extends AsyncTask<Void, Void, List<Book>> {
 
         ProgressDialog progressDialog;
@@ -90,6 +98,12 @@ public class BooksListingActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Book> books) {
             stopProgressDialog();
+
+            if (books.isEmpty()) {
+                setVisible(findViewById(R.id.books_not_found_text_view));
+            } else {
+                setInsivible(findViewById(R.id.books_not_found_text_view));
+            }
 
             BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);
             ListView listView = (ListView) findViewById(R.id.books_listview);

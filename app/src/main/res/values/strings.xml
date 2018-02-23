@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">ItsReadingTime</string>
-    <string name="action_settings">Settings</string>
+
+    <!--activities-->
+    <string name="add_book_activity_title">Add Book</string>
+    <string name="setup_reminder_activity_title">Setup Reminder</string>
+    <string name="books_listing_activity_title">Personal Library</string>
 
     <!--messages-->
     <string name="msg_please_wait">Please, wait ...</string>
@@ -14,10 +18,14 @@
     <!--buttons-->
     <string name="btn_setup_reminder">Setup Reminder</string>
     <string name="btn_save">Save</string>
+    <string name="action_settings">Settings</string>
 
     <!--fields-->
     <string name="pages">Pages</string>
-    <string name="add_book_activity_title">Add Book</string>
     <string name="hint_book_title">Book Title</string>
     <string name="hint_book_pages">Number of Pages</string>
+    <string name="label_no_books_found">
+        It looks like you don\'t have any books in your personal library yet.
+        Start adding them by clicking on the button in the bottom of the page.
+    </string>
 </resources>
