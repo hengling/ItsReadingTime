@@ -8,6 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.ahengling.itsreadingtime.adapter.BooksListAdapter;
+import com.ahengling.itsreadingtime.model.Book;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BooksListingActivity extends AppCompatActivity {
 
@@ -26,6 +33,16 @@ public class BooksListingActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // Only for testing purposes
+        List<Book> books = new ArrayList<>();
+        books.add(new Book("Title 1", 200));
+        books.add(new Book("Title 2", 240));
+        books.add(new Book("Title 3", 120));
+
+        final ListView listview = (ListView) findViewById(R.id.books_listview);
+        final BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);
+        listview.setAdapter(adapter);
     }
 
     @Override

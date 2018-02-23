@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ItsReadingTime</string>
     <string name="action_settings">Settings</string>
+
+    <!--strings used on fields-->
+    <string name="pages">Pages</string>
 </resources>
