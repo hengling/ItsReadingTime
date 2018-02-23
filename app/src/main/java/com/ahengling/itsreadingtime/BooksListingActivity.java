@@ -84,11 +84,6 @@ public class BooksListingActivity extends AppCompatActivity {
         @Override
         protected List<Book> doInBackground(Void... voids) {
             BookDao bookDao = AppDatabase.getInstance(BooksListingActivity.this).bookDao();
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return bookDao.getAll();
         }
 

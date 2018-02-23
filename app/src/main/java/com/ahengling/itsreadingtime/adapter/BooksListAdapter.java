@@ -1,14 +1,17 @@
 package com.ahengling.itsreadingtime.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ahengling.itsreadingtime.R;
+import com.ahengling.itsreadingtime.SetupReminderActivity;
 import com.ahengling.itsreadingtime.model.Book;
 
 import java.util.List;
@@ -30,8 +33,10 @@ public class BooksListAdapter extends ArrayAdapter<Book> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = createBookItemView(parent);
 
-        fillTextViewWithValue(view, R.id.titleTextView, books.get(position).getTitle());
-        fillTextViewWithValue(view, R.id.pagesTextView, getNbOfPagesAsString(view, position));
+        fillTextViewWithValue(view, R.id.title_text_view, books.get(position).getTitle());
+        fillTextViewWithValue(view, R.id.pages_text_view, getNbOfPagesAsString(view, position));
+
+        createSetupReminderClickListener(view, position);
 
         return view;
     }
@@ -49,7 +54,19 @@ public class BooksListAdapter extends ArrayAdapter<Book> {
     }
 
     private String getNbOfPagesAsString(View view, int position) {
-        String pages = " " +  view.getResources().getString(R.string.pages);
+        String pages = " " + view.getResources().getString(R.string.pages);
         return books.get(position).getNbOfPages().toString() + pages;
+    }
+
+    private void createSetupReminderClickListener(final View view, final int position) {
+        Button setupReminderButton = (Button) view.findViewById(R.id.setup_reminder_button);
+        setupReminderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                Intent intent = new Intent(view.getContext(), SetupReminderActivity.class);
+                intent.putExtra("book", books.get(position));
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 }

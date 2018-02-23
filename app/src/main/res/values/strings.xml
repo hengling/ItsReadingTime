@@ -7,10 +7,13 @@
     <string name="msg_add_book_success">Book added successfully!</string>
     <string name="msg_add_book_error">Ops, looks like something went wrong...</string>
 
-    <!--strings used on fields-->
+    <!--buttons-->
+    <string name="btn_setup_reminder">Setup Reminder</string>
+    <string name="btn_save">Save</string>
+
+    <!--fields-->
     <string name="pages">Pages</string>
     <string name="add_book_activity_title">Add Book</string>
     <string name="hint_book_title">Book Title</string>
     <string name="hint_book_pages">Number of Pages</string>
-    <string name="save">Save</string>
 </resources>
