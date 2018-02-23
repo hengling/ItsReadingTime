@@ -2,6 +2,15 @@
     <string name="app_name">ItsReadingTime</string>
     <string name="action_settings">Settings</string>
 
+    <!--messages-->
+    <string name="msg_please_wait">Please, wait ...</string>
+    <string name="msg_add_book_success">Book added successfully!</string>
+    <string name="msg_add_book_error">Ops, looks like something went wrong...</string>
+
     <!--strings used on fields-->
     <string name="pages">Pages</string>
+    <string name="add_book_activity_title">Add Book</string>
+    <string name="hint_book_title">Book Title</string>
+    <string name="hint_book_pages">Number of Pages</string>
+    <string name="save">Save</string>
 </resources>

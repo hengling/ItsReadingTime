@@ -1,8 +1,10 @@
 package com.ahengling.itsreadingtime;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,9 +13,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.ahengling.itsreadingtime.adapter.BooksListAdapter;
+import com.ahengling.itsreadingtime.config.db.AppDatabase;
 import com.ahengling.itsreadingtime.model.Book;
+import com.ahengling.itsreadingtime.model.BookDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BooksListingActivity extends AppCompatActivity {
@@ -29,20 +32,21 @@ public class BooksListingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(BooksListingActivity.this, AddBookActivity.class);
+                startActivity(intent);
             }
         });
+    }
 
-        // Only for testing purposes
-        List<Book> books = new ArrayList<>();
-        books.add(new Book(1L, "Title 1", 200));
-        books.add(new Book(2L, "Title 2", 240));
-        books.add(new Book(3L, "Title 3", 120));
+    protected void onResume() {
+        super.onResume();
+        refreshListing();
+    }
 
-        final ListView listview = (ListView) findViewById(R.id.books_listview);
-        final BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);
-        listview.setAdapter(adapter);
+    private void refreshListing() {
+        new findAllBooks().execute();
     }
 
     @Override
@@ -65,5 +69,51 @@ public class BooksListingActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class findAllBooks extends AsyncTask<Void, Void, List<Book>> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            startProgressDialog();
+        }
+
+        @Override
+        protected List<Book> doInBackground(Void... voids) {
+            BookDao bookDao = AppDatabase.getInstance(BooksListingActivity.this).bookDao();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return bookDao.getAll();
+        }
+
+        @Override
+        protected void onPostExecute(List<Book> books) {
+            stopProgressDialog();
+
+            BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);
+            ListView listView = (ListView) findViewById(R.id.books_listview);
+            listView.setAdapter(adapter);
+        }
+
+
+        private void startProgressDialog() {
+            progressDialog = new ProgressDialog(BooksListingActivity.this);
+            progressDialog.setMessage(getDialogMessage());
+            progressDialog.show();
+        }
+
+        private void stopProgressDialog() {
+            progressDialog.dismiss();
+        }
+
+        private String getDialogMessage() {
+            return BooksListingActivity.this.getResources().getString(R.string.msg_please_wait);
+        }
     }
 }
