@@ -26,6 +26,6 @@
     <string name="hint_book_pages">Number of Pages</string>
     <string name="label_no_books_found">
         It looks like you don\'t have any books in your personal library yet.
-        Start adding them by clicking on the button in the bottom of the page.
+        Start adding them by clicking on the button at the bottom of the page.
     </string>
 </resources>

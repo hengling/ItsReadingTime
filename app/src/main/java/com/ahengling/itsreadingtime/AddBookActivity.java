@@ -21,6 +21,12 @@ import com.ahengling.itsreadingtime.model.BookDao;
 public class AddBookActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
@@ -105,6 +111,7 @@ public class AddBookActivity extends AppCompatActivity {
                 String successMsg = context.getResources().getString(R.string.msg_add_book_success);
                 Toast.makeText(AddBookActivity.this, successMsg, Toast.LENGTH_LONG).show();
                 goToBookListingActivity();
+                finish();
             } else {
                 String errorMsg = context.getResources().getString(R.string.msg_add_book_error);
                 Toast.makeText(AddBookActivity.this, errorMsg, Toast.LENGTH_LONG).show();
