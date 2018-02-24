@@ -7,8 +7,12 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.ahengling.itsreadingtime.util.Constants;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by adolfohengling on 2/23/18.
@@ -18,30 +22,29 @@ public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     private EditText editText;
-    private String format;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        if (isDateSet()) {
+            try {
+                return createAndfillDialogWithChoosenDate();
+            } catch (ParseException pe) {
+                pe.printStackTrace();
 
-        // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+                editText.setText("");
+                return createAndFillDigalogWithDefaultDate();
+            }
+        }
+        return createAndFillDigalogWithDefaultDate();
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         editText.setText(formatDate(year, month, day));
+        this.editText.setError(null);
     }
 
     public void setEditText(EditText editText) {
         this.editText = editText;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
     }
 
     private String formatDate(int year, int month, int day) {
@@ -50,8 +53,31 @@ public class DatePickerFragment extends DialogFragment
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(this.format);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(Constants.DEFAULT.DATE_FORMAT);
         return dateFormatter.format(calendar.getTime());
     }
+
+    private Boolean isDateSet() {
+        return !editText.getText().toString().isEmpty();
+    }
+
+    private DatePickerDialog createAndFillDigalogWithDefaultDate() {
+        final Calendar c = Calendar.getInstance();
+        return new DatePickerDialog(getActivity(), this, c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private DatePickerDialog createAndfillDialogWithChoosenDate() throws ParseException {
+        String dateStr = editText.getText().toString();
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DEFAULT.DATE_FORMAT);
+        Date choosenDate = formatter.parse(dateStr);
+        Calendar c = Calendar.getInstance();
+        c.setTime(choosenDate);
+
+        return new DatePickerDialog(getActivity(), this, c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+    }
+
+
 
 }

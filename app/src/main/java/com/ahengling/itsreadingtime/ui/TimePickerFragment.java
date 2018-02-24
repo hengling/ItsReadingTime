@@ -8,7 +8,12 @@ import android.text.format.DateFormat;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.ahengling.itsreadingtime.util.Constants;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by adolfohengling on 2/23/18.
@@ -21,18 +26,22 @@ public class TimePickerFragment extends DialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current time as the default values for the picker
-        final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
+        if (isTimeSet()) {
+            try {
+               return createAndFillWithChoosenTime();
+            } catch (ParseException pe) {
+                pe.printStackTrace();
 
-        // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+                editText.setText("");
+                return createAndFillWithCurrentTime();
+            }
+        }
+        return createAndFillWithCurrentTime();
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         this.editText.setText(getSelectedTimeAsString(hourOfDay, minute));
+        this.editText.setError(null);
     }
 
     public void setEditText(EditText editText) {
@@ -40,6 +49,38 @@ public class TimePickerFragment extends DialogFragment
     }
 
     private String getSelectedTimeAsString(int hour, int minute) {
-        return Integer.toString(hour) + ":" + Integer.toString(minute);
+        Date date = new Date();
+        date.setHours(hour);
+        date.setMinutes(minute);
+
+        return formatTime(date);
     }
+
+    private String formatTime(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(Constants.DEFAULT.TIME_FORMAT);
+        return dateFormatter.format(date.getTime());
+    }
+
+    private Boolean isTimeSet() {
+        return !editText.getText().toString().isEmpty();
+    }
+
+    private TimePickerDialog createAndFillWithCurrentTime() {
+        final Calendar c = Calendar.getInstance();
+        return new TimePickerDialog(getActivity(), this, c.get(Calendar.HOUR_OF_DAY),
+                c.get(Calendar.MINUTE), DateFormat.is24HourFormat(getActivity()));
+    }
+
+    private TimePickerDialog createAndFillWithChoosenTime() throws ParseException {
+        String timeStr = editText.getText().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DEFAULT.TIME_FORMAT);
+        Date time = dateFormat.parse(timeStr);
+
+        final Calendar c = Calendar.getInstance();
+        c.setTime(time);
+
+        return new TimePickerDialog(getActivity(), this, c.get(Calendar.HOUR_OF_DAY),
+                c.get(Calendar.MINUTE), DateFormat.is24HourFormat(getActivity()));
+    }
+
 }

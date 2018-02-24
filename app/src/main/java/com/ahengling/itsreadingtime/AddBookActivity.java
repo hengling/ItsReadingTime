@@ -113,7 +113,7 @@ public class AddBookActivity extends AppCompatActivity {
                 goToBookListingActivity();
                 finish();
             } else {
-                String errorMsg = context.getResources().getString(R.string.msg_add_book_error);
+                String errorMsg = context.getResources().getString(R.string.msg_error_default);
                 Toast.makeText(AddBookActivity.this, errorMsg, Toast.LENGTH_LONG).show();
             }
         }

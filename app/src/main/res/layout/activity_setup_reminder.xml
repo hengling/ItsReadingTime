@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/btn_pick_date"
+                android:inputType="date"
                 android:onClick="showDatePickerDialog" />
 
         </android.support.design.widget.TextInputLayout>
@@ -60,11 +61,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_set_reminder"
+            android:id="@+id/btn_save_reminder"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_setup_reminder" />
+            android:text="@string/btn_save_reminder" />
 
     </LinearLayout>
 
