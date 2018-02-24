@@ -134,6 +134,7 @@ public class AddBookActivity extends AppCompatActivity {
 
         private void goToBookListingActivity() {
             Intent intent = new Intent(AddBookActivity.this, BooksListingActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }

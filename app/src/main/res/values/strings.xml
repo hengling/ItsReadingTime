@@ -13,6 +13,7 @@
     <string name="msg_invalid_date">Invalid date</string>
     <string name="msg_invalid_time">Invalid time</string>
     <string name="msg_reminder_created">Reminder created successfully!</string>
+    <string name="msg_notification">It\'s time to read </string>
 
     <!--validation messages-->
     <string name="msg_book_title_required">Title is required</string>

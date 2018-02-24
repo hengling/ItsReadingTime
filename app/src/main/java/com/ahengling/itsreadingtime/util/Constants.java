@@ -16,4 +16,8 @@ public class Constants {
         public static final String DATETIME_FORMAT = "dd/MM/yyyy HH:mm";
     }
 
+    public static class NOTIFICATION {
+        public static final String CHANNEL_ID = "irt_notification";
+    }
+
 }

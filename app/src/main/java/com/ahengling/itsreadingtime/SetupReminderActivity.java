@@ -24,6 +24,8 @@ import java.util.Date;
 
 public class SetupReminderActivity extends AppCompatActivity {
 
+    private Book book;
+
     @Override
     public void onBackPressed() {
         goToBooksListingActivity();
@@ -34,8 +36,8 @@ public class SetupReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup_reminder);
 
-        Book book = (Book) getIntent().getSerializableExtra("book");
-        setBookTitleOnScreen(book);
+        this.book = (Book) getIntent().getSerializableExtra("book");
+        setBookTitleOnScreen();
 
         createSaveReminderButtonClickListener();
     }
@@ -54,7 +56,7 @@ public class SetupReminderActivity extends AppCompatActivity {
         UiHelper.hideKeyboard(v, this);
     }
 
-    private void setBookTitleOnScreen(Book book) {
+    private void setBookTitleOnScreen() {
         TextView textView = (TextView) findViewById(R.id.book_title_text_view);
         textView.setText(book.getTitle());
     }
@@ -84,12 +86,14 @@ public class SetupReminderActivity extends AppCompatActivity {
     }
 
     private Intent createAlarmReminderIntent() {
-        return new Intent(SetupReminderActivity.this, AlarmReminder.class);
+        Intent intent = new Intent(SetupReminderActivity.this, AlarmReminder.class);
+        intent.putExtra("book", book);
+        return intent;
     }
 
     private PendingIntent createPendingIntentForAlarmReminder(Intent alarmIntent) {
         return PendingIntent.getBroadcast(getApplicationContext(), 0,
-                alarmIntent, 0);
+                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private Boolean isDateValid() {
@@ -163,6 +167,7 @@ public class SetupReminderActivity extends AppCompatActivity {
 
     private void goToBooksListingActivity() {
         Intent intent = new Intent(SetupReminderActivity.this, BooksListingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
