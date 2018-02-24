@@ -19,6 +19,8 @@
     <string name="btn_setup_reminder">Setup Reminder</string>
     <string name="btn_save">Save</string>
     <string name="action_settings">Settings</string>
+    <string name="btn_pick_date">Date</string>
+    <string name="btn_pick_time">Time</string>
 
     <!--fields-->
     <string name="pages">Pages</string>
