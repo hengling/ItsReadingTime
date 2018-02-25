@@ -21,4 +21,4 @@ Well, we hope you enjoy it and let us know what you think of it!
 
 ## Functionalities
 
-![Empty Listing](app_images/1.empty_listing.png)
+![Empty Listing](app_images/1.empty_listing.png 100x100)
