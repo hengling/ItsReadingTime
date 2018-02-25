@@ -18,6 +18,7 @@ public class Constants {
 
     public static class NOTIFICATION {
         public static final String CHANNEL_ID = "irt_notification";
+        public static final String CHANNEL_DESCRIPTION = "ItsReadingTime Notifications Channel";
     }
 
 }

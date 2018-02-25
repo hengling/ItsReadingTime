@@ -10,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ahengling.itsreadingtime.adapter.BooksListAdapter;
 import com.ahengling.itsreadingtime.config.db.AppDatabase;
@@ -69,12 +71,16 @@ public class BooksListingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setVisible(View view) {
-        view.setVisibility(View.VISIBLE);
+    private void setEmptyListingMessageOnView() {
+        TextView booksNotFoundTextView = (TextView) findViewById(R.id.books_not_found_text_view);
+        booksNotFoundTextView.setVisibility(View.VISIBLE);
+        booksNotFoundTextView.setText(getString(R.string.label_no_books_found));
     }
 
-    private void setInsivible(View view) {
-        view.setVisibility(View.INVISIBLE);
+    private void hideEmptyListingMessage() {
+        TextView booksNotFoundTextView = (TextView) findViewById(R.id.books_not_found_text_view);
+        booksNotFoundTextView.setVisibility(View.INVISIBLE);
+        booksNotFoundTextView.setText("");
     }
 
     private class findAllBooks extends AsyncTask<Void, Void, List<Book>> {
@@ -98,9 +104,9 @@ public class BooksListingActivity extends AppCompatActivity {
             stopProgressDialog();
 
             if (books.isEmpty()) {
-                setVisible(findViewById(R.id.books_not_found_text_view));
+                setEmptyListingMessageOnView();
             } else {
-                setInsivible(findViewById(R.id.books_not_found_text_view));
+                hideEmptyListingMessage();
             }
 
             BooksListAdapter adapter = new BooksListAdapter(BooksListingActivity.this, books);

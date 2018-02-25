@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ahengling.itsreadingtime.R;
@@ -59,7 +59,7 @@ public class BooksListAdapter extends ArrayAdapter<Book> {
     }
 
     private void createSetupReminderClickListener(final View view, final int position) {
-        Button setupReminderButton = (Button) view.findViewById(R.id.setup_reminder_button);
+        ImageButton setupReminderButton = (ImageButton) view.findViewById(R.id.setup_reminder_button);
         setupReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {

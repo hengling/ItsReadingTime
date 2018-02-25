@@ -87,7 +87,7 @@ public class SetupReminderActivity extends AppCompatActivity {
 
     private Intent createAlarmReminderIntent() {
         Intent intent = new Intent(SetupReminderActivity.this, AlarmReminder.class);
-        intent.putExtra("book", book);
+        intent.putExtra("book", book.getTitle());
         return intent;
     }
 

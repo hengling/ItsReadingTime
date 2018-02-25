@@ -27,7 +27,6 @@
             android:id="@+id/books_not_found_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_no_books_found"
             android:visibility="invisible"/>
 
         <ListView
