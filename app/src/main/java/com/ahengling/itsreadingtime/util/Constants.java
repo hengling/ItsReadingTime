@@ -21,4 +21,14 @@ public class Constants {
         public static final String CHANNEL_DESCRIPTION = "ItsReadingTime Notifications Channel";
     }
 
+    public static class EXTRAS {
+        public static final String BOOK_ID = "BOOK_ID";
+    }
+
+    public static class EVENTS {
+        public static class BOOK {
+            public static final String DELETED = "BOOK_DELETED";
+        }
+    }
+
 }

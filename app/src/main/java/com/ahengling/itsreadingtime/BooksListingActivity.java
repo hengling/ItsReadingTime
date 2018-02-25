@@ -1,7 +1,10 @@
 package com.ahengling.itsreadingtime;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.ahengling.itsreadingtime.adapter.BooksListAdapter;
 import com.ahengling.itsreadingtime.config.db.AppDatabase;
 import com.ahengling.itsreadingtime.model.Book;
 import com.ahengling.itsreadingtime.model.BookDao;
+import com.ahengling.itsreadingtime.util.Constants;
 
 import java.util.List;
 
@@ -30,14 +33,8 @@ public class BooksListingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BooksListingActivity.this, AddBookActivity.class);
-                startActivity(intent);
-            }
-        });
+        createAddBookClickListener();
+        registerBookDeletedEventListener();
     }
 
     protected void onResume() {
@@ -69,6 +66,27 @@ public class BooksListingActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createAddBookClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BooksListingActivity.this, AddBookActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void registerBookDeletedEventListener() {
+        BroadcastReceiver uiUpdated = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                refreshListing();
+            }
+        };
+        registerReceiver(uiUpdated, new IntentFilter(Constants.EVENTS.BOOK.DELETED));
     }
 
     private void setEmptyListingMessageOnView() {

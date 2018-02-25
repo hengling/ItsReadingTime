@@ -24,6 +24,7 @@ import java.util.Date;
 
 public class SetupReminderActivity extends AppCompatActivity {
 
+    private static Integer pendingIntentRequestCode;
     private Book book;
 
     @Override
@@ -87,13 +88,22 @@ public class SetupReminderActivity extends AppCompatActivity {
 
     private Intent createAlarmReminderIntent() {
         Intent intent = new Intent(SetupReminderActivity.this, AlarmReminder.class);
-        intent.putExtra("book", book.getTitle());
+        intent.putExtra(Constants.EXTRAS.BOOK_ID, book.getId());
         return intent;
     }
 
     private PendingIntent createPendingIntentForAlarmReminder(Intent alarmIntent) {
-        return PendingIntent.getBroadcast(getApplicationContext(), 0,
-                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(getApplicationContext(), getNextPendingIntentRequestCode(),
+                alarmIntent, 0);
+    }
+
+    private Integer getNextPendingIntentRequestCode() {
+        if (pendingIntentRequestCode == null) {
+            pendingIntentRequestCode = 0;
+        } else {
+            pendingIntentRequestCode++;
+        }
+        return pendingIntentRequestCode;
     }
 
     private Boolean isDateValid() {
