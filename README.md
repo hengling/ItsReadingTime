@@ -4,6 +4,7 @@ Android Project that motivates people to read more! =D
 ## Summary
     * Overview
     * Functionalities
+    * Up comming
     * Help us make it better
     
 ## Overview
@@ -21,4 +22,17 @@ Well, we hope you enjoy it and let us know what you think of it!
 
 ## Functionalities
 
-![Empty Listing](app_images/1.empty_listing.png 100x100)
+* Personal library: manage all of your books
+* Add book: add books to your personal library
+* Setup Reminder: choose date and time to setup reminders for reading your books
+* Delete book: remove a book from your personal library
+
+See images on [app_images](./app_images) folder.
+
+## Up comming
+
+Under construction.
+
+## Help us make it better
+
+Under construction.
