@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationManagerCompat;
 
 import com.ahengling.itsreadingtime.R;
 import com.ahengling.itsreadingtime.config.db.AppDatabase;
+import com.ahengling.itsreadingtime.helper.UiHelper;
 import com.ahengling.itsreadingtime.model.Book;
 import com.ahengling.itsreadingtime.model.BookDao;
 import com.ahengling.itsreadingtime.util.Constants;
@@ -58,6 +59,7 @@ public class AlarmReminder extends BroadcastReceiver {
             createNotificationChannel(context);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(getNextNotificationId(), mBuilder.build());
+            UiHelper.vibrateFor(context, 1000);
         }
     }
 
