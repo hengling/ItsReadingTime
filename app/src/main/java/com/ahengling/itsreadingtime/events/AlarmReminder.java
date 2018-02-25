@@ -22,7 +22,16 @@ import com.ahengling.itsreadingtime.util.Constants;
 
 public class AlarmReminder extends BroadcastReceiver {
 
-    private static int notificationId = 0;
+    private static Integer notificationId;
+
+    private static int getNextNotificationId() {
+        if (notificationId == null) {
+            notificationId = 0;
+        } else {
+            notificationId++;
+        }
+        return notificationId;
+    }
 
     private static class findBookById extends AsyncTask<Long, Void, Book> {
 
@@ -48,7 +57,7 @@ public class AlarmReminder extends BroadcastReceiver {
             NotificationCompat.Builder mBuilder = createNotification(context, book);
             createNotificationChannel(context);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-            notificationManager.notify(notificationId, mBuilder.build());
+            notificationManager.notify(getNextNotificationId(), mBuilder.build());
         }
     }
 
@@ -64,18 +73,15 @@ public class AlarmReminder extends BroadcastReceiver {
 
     private static NotificationCompat.Builder createNotification(Context context, Book book) {
         StringBuilder stringBuilder = new StringBuilder(context.getString(R.string.msg_notification))
-                .append(" ").append(book.getTitle());
+                .append(" ").append(book.getTitle()).append(" =D");
 
         String nChannel = Constants.NOTIFICATION.CHANNEL_ID;
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, nChannel)
+        return new NotificationCompat.Builder(context, nChannel)
                 .setChannelId(nChannel)
                 .setSmallIcon(R.drawable.ic_book)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(stringBuilder.toString())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        notificationId ++;
-        return mBuilder;
     }
 
     private static void createNotificationChannel(Context context) {

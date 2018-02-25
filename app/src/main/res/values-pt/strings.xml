@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ItsReadingTime</string>
+
+    <!--activities-->
+    <string name="add_book_activity_title">Adicionar Livro</string>
+    <string name="setup_reminder_activity_title">Configurar Lembrete</string>
+    <string name="books_listing_activity_title">Biblioteca Pessoal</string>
+    <string name="delete_book_dialog">Remover Livro</string>
+
+    <!--messages-->
+    <string name="msg_please_wait">Por favor, aguarde ...</string>
+    <string name="msg_add_book_success">Livro adicionado com sucesso!</string>
+    <string name="msg_error_default">Ops, algo deu errado...</string>
+    <string name="msg_invalid_date">Data inválida</string>
+    <string name="msg_invalid_time">Horário inválido</string>
+    <string name="msg_reminder_created">Lembrete criado com sucesso!</string>
+    <string name="msg_notification">Esta na hora de ler</string>
+    <string name="msg_confirm_delete_book">Remover livro</string>
+    <string name="msg_book_deleted_successfully">O livro foi removido com sucesso!</string>
+
+    <!--validation messages-->
+    <string name="msg_book_title_required">Título é obrigatório</string>
+    <string name="msg_book_pages_required">Número de páginas é obrigatório</string>
+
+    <!--buttons-->
+    <string name="btn_setup_reminder">Configurar Lembrete</string>
+    <string name="btn_save_reminder">Salvar Lembrete</string>
+    <string name="btn_save">Salvar</string>
+    <string name="action_settings">Configurações</string>
+    <string name="btn_pick_date">Data</string>
+    <string name="btn_pick_time">Horário</string>
+    <string name="btn_ok">ok</string>
+    <string name="btn_cancel">cancelar</string>
+
+    <!--fields-->
+    <string name="pages">Páginas</string>
+    <string name="hint_book_title">Título</string>
+    <string name="hint_book_pages">Número de Páginas</string>
+    <string name="label_no_books_found">
+        Parece que você não adicionou nenhum livro a sua bibliteca pessoal ainda. Comece a
+        adicionar livros através do botão adicionar, localizado no final da tela.
+    </string>
 </resources>
